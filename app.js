@@ -17,6 +17,29 @@ function fetchProducts() {
 }
 fetchProducts();
 
+function addToCart(id, name, price) {
+    firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+            // User is logged in, proceed with adding to cart
+            db.collection("cart").add({
+                userId: user.uid,
+                productId: id,
+                name: name,
+                price: price
+            }).then(() => {
+                alert("Added to cart!");
+            }).catch(error => {
+                alert("Error: " + error.message);
+            });
+        } else {
+            // Not logged in, redirect to login page
+            alert("Please log in to add items to your cart.");
+            window.location.href = "login.html";
+        }
+    });
+}
+
+
 // Search Functionality
 document.getElementById("searchBar").addEventListener("input", function () {
     let searchValue = this.value.toLowerCase();
