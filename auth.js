@@ -37,11 +37,14 @@ function logout() {
         });
 }
 
+
+
 function checkAuth() {
-    auth.onAuthStateChanged((user) => {
+    firebase.auth().onAuthStateChanged(user => {
         if (!user) {
-            alert("Please log in first!");
+            alert("Access denied! Please log in first.");
             window.location.href = "login.html";
         }
     });
 }
+
