@@ -22,10 +22,37 @@ function loadCheckout() {
 }
 
 function placeOrder() {
-    alert("Order placed successfully! Redirecting to homepage...");
-    localStorage.removeItem("cart");
-    window.location.href = "index.html"; // Redirect after checkout
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+    }
+
+    let user = auth.currentUser; // Get logged-in user
+    if (!user) {
+        alert("Please log in to place an order.");
+        window.location.href = "login.html";
+        return;
+    }
+
+    let orderData = {
+        userId: user.uid,
+        items: cart,
+        totalAmount: cart.reduce((sum, item) => sum + item.price, 0),
+        timestamp: new Date().toISOString()
+    };
+
+    db.collection("orders").add(orderData)
+        .then(() => {
+            alert("Order placed successfully!");
+            localStorage.removeItem("cart");
+            window.location.href = "order-history.html"; // Redirect to order history
+        })
+        .catch((error) => {
+            alert("Error placing order: " + error.message);
+        });
 }
+
 
 function goBack() {
     window.history.back();
