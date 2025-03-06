@@ -41,14 +41,13 @@ function removeFromCart(index) {
 }
 
 function checkout() {
-    if (cart.length === 0) {
-        alert("Your cart is empty!");
-        return;
-    }
-    alert("Proceeding to checkout...");
-    localStorage.removeItem("cart");
-    cart = [];
-    updateCartDisplay();
+    firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+            alert("Proceeding to checkout...");
+            // Add checkout logic here
+        } else {
+            alert("You must log in to checkout.");
+            window.location.href = "login.html";
+        }
+    });
 }
-
-window.onload = loadCart;
