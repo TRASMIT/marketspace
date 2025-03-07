@@ -9,14 +9,56 @@ const firebaseConfig = {
     appId: "YOUR_APP_ID"
 };
 
-// ✅ Ensure Firebase is initialized only once
+// ✅ Initialize Firebase only once
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
 }
 
-// ✅ Global Firebase References
+// ✅ Firebase References
 const auth = firebase.auth();
 const db = firebase.firestore();
 const storage = firebase.storage();
 
 console.log("✅ Firebase Initialized Successfully!");
+
+// ✅ Fetch Products Only When Firebase is Ready
+fetchProducts();
+
+// ✅ Fetch Products Function
+function fetchProducts() {
+    console.log("📌 Fetching Products...");
+
+    if (!db) {
+        console.error("❌ Firebase not initialized yet!");
+        return;
+    }
+
+    db.collection("products").onSnapshot((snapshot) => {
+        let productsContainer = document.getElementById("adminProducts");
+        if (productsContainer) {
+            productsContainer.innerHTML = "";
+            snapshot.forEach((doc) => {
+                let product = doc.data();
+                productsContainer.innerHTML += `
+                    <div class="product-card">
+                        <img src="${product.image}" alt="${product.name}">
+                        <h3>${product.name}</h3>
+                        <p>$${product.price}</p>
+                        <button onclick="deleteProduct('${doc.id}')">Delete</button>
+                    </div>`;
+            });
+        }
+        console.log("✅ Products Loaded Successfully!");
+    });
+}
+
+// ✅ Logout Function
+function logout() {
+    auth.signOut().then(() => {
+        alert("✅ Logged out successfully!");
+        window.location.href = "login.html";
+    }).catch(error => {
+        console.error("❌ Logout Error:", error);
+    });
+}
+
