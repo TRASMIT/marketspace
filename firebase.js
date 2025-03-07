@@ -1,18 +1,26 @@
-console.log("📌 Initializing Firebase...");
+// ✅ Load Firebase SDKs
+document.write(`
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"><\/script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"><\/script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"><\/script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js"><\/script>
+`);
 
-// ✅ Your Firebase Config (Replace with your actual values)
+// ✅ Firebase Configuration (Replace with your actual config)
 const firebaseConfig = {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_AUTH_DOMAIN",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_STORAGE_BUCKET",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
+    apiKey: "AIzaSyBOIYbsZq8J-N2e-DE9lQtqBplmJGGyU2Y",
+    authDomain: "elvenail.firebaseapp.com",
+    projectId: "elvenail",
+    storageBucket: "elvenail.firebasestorage.app",
+    messagingSenderId: "157530111056",
+    appId: "1:157530111056:web:a430f8a8ee78b6fcf16555"
+    measurementId: "G-9GK31THNTV"
 };
 
-// ✅ Ensure Firebase is initialized only once
+// ✅ Initialize Firebase
 if (!firebase.apps.length) {
     firebase.initializeApp(firebaseConfig);
+    firebase.analytics();
 }
 
 // ✅ Firebase References
@@ -20,4 +28,40 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 const storage = firebase.storage();
 
-console.log("✅ Firebase Initialized Successfully!");
+// ✅ Function to Fetch Products
+function fetchProducts() {
+    console.log("📌 Fetching Products...");
+
+    db.collection("products").onSnapshot((snapshot) => {
+        let productsContainer = document.getElementById("products");
+        if (productsContainer) {
+            productsContainer.innerHTML = "";
+            snapshot.forEach((doc) => {
+                let product = doc.data();
+                productsContainer.innerHTML += `
+                    <div class="product-card">
+                        <img src="${product.image}" alt="${product.name}">
+                        <h3>${product.name}</h3>
+                        <p>$${product.price}</p>
+                        <button onclick="addToCart('${doc.id}', '${product.name}', ${product.price})">
+                            Add to Cart
+                        </button>
+                    </div>`;
+            });
+        }
+        console.log("✅ Products Loaded Successfully!");
+    });
+}
+
+// ✅ Call Fetch Products
+fetchProducts();
+
+// ✅ Logout Function
+function logout() {
+    auth.signOut().then(() => {
+        alert("✅ Logged out successfully!");
+        window.location.href = "login.html";
+    }).catch(error => {
+        console.error("❌ Logout Error:", error);
+    });
+}
