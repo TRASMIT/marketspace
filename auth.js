@@ -4,11 +4,11 @@ function signUp() {
 
     auth.createUserWithEmailAndPassword(email, password)
         .then((userCredential) => {
-            alert("Signup successful! Redirecting to login...");
+            alert("✅ Signup successful! Redirecting to login...");
             window.location.href = "login.html";
         })
         .catch((error) => {
-            alert("Error: " + error.message);
+            alert("❌ Error: " + error.message);
         });
 }
 
@@ -18,26 +18,24 @@ function logIn() {
 
     auth.signInWithEmailAndPassword(email, password)
         .then((userCredential) => {
-            alert("Login successful! Redirecting to homepage...");
+            alert("✅ Login successful! Redirecting to homepage...");
             window.location.href = "index.html";
         })
         .catch((error) => {
-            alert("Error: " + error.message);
+            alert("❌ Error: " + error.message);
         });
 }
 
 function logout() {
     auth.signOut()
         .then(() => {
-            alert("Logged out successfully!");
+            alert("✅ Logged out successfully!");
             window.location.href = "login.html";
         })
         .catch((error) => {
-            alert("Error: " + error.message);
+            alert("❌ Error: " + error.message);
         });
 }
-
-
 
 // ✅ Function to Check Authentication Status
 function checkAuth() {
@@ -48,5 +46,3 @@ function checkAuth() {
         }
     });
 }
-
-
