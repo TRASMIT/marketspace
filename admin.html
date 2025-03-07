@@ -16,18 +16,15 @@
 
     <section id="adminProducts"></section>
 
-    <!-- ✅ Firebase SDKs (Use CDN Links) -->
+    <!-- ✅ Use Correct Firebase CDN Scripts -->
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js"></script>
 
-    <!-- ✅ Your Scripts -->
+    <!-- ✅ Your Scripts (Load After Firebase) -->
     <script src="firebase.js"></script>
     <script src="auth.js"></script>
-    <script>
-        checkAuth(); // Redirects to login if not authenticated
-    </script>
     <script src="admin.js"></script>
 </body>
 </html>
