@@ -16,12 +16,13 @@
 
     <section id="adminProducts"></section>
 
+    <!-- ✅ Correct Script Order -->
     <script src="firebase.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        checkAuth(); // Redirects to login if not authenticated
+    </script>
     <script src="admin.js"></script>
 </body>
 </html>
-<script src="auth.js"></script>
-<script>
-    checkAuth(); // Redirects to login if not authenticated
-</script>
 
