@@ -16,18 +16,20 @@
 
     <section id="adminProducts"></section>
 
-    <!-- ✅ Include Firebase SDKs Before Your Scripts -->
+    <!-- ✅ Firebase SDKs (Using Correct Versioning) -->
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js"></script>
 
-    <!-- ✅ Your Scripts -->
+    <!-- ✅ Your Custom Scripts -->
     <script src="firebase.js"></script>
     <script src="auth.js"></script>
     <script>
-        checkAuth(); // Redirects to login if not authenticated
+        document.addEventListener("DOMContentLoaded", () => {
+            checkAuth(); // Ensure authentication is checked after page loads
+        });
     </script>
     <script src="admin.js"></script>
 </body>
 </html>
-
