@@ -39,7 +39,7 @@ function logout() {
 
 // ✅ Function to Check Authentication Status
 function checkAuth() {
-    firebase.auth().onAuthStateChanged((user) => {
+    auth.onAuthStateChanged((user) => {
         if (!user) {
             alert("❌ Access Denied! Redirecting to Login...");
             window.location.href = "login.html";
