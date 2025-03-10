@@ -4,23 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Panel - Manage Products</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.11.0/firebase-app.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.11.0/firebase-auth.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.11.0/firebase-firestore.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.11.0/firebase-storage.js"></script>
-    <script src="firebase.js" defer></script>
-    <script src="admin.js" defer></script>
+    <script type="module" src="firebase.js"></script>
+    <script type="module" src="admin.js"></script>
 </head>
 <body>
     <h1>Admin Panel - Manage Products</h1>
-    <input type="text" id="productName" placeholder="Product Name">
-    <input type="text" id="productPrice" placeholder="Price">
-    <input type="file" id="productImage">
-    <input type="text" id="productCategory" placeholder="Category">
-    <button onclick="addProduct()">Add Product</button>
-    
-    <h2>Product List</h2>
-    <ul id="productList"></ul>
+
+    <!-- ✅ Add Product Form -->
+    <form id="addProductForm">
+        <input type="text" id="productName" placeholder="Product Name" required>
+        <input type="number" id="productPrice" placeholder="Price" required>
+        <input type="file" id="productImage" accept="image/*" required>
+        <input type="text" id="productCategory" placeholder="Category" required>
+        <button type="submit">Add Product</button>
+    </form>
+
+    <!-- ✅ Logout Button -->
+    <button id="logoutBtn">Logout</button>
+
+    <!-- ✅ Display Products -->
+    <div id="products"></div>
 </body>
 </html>
 
