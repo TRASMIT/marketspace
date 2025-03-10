@@ -3,28 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Panel</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Admin Panel - Manage Products</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.11.0/firebase-app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.11.0/firebase-auth.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.11.0/firebase-firestore.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/10.11.0/firebase-storage.js"></script>
+    <script src="firebase.js" defer></script>
+    <script src="admin.js" defer></script>
 </head>
 <body>
-    <h2>Admin Panel - Manage Products</h2>
+    <h1>Admin Panel - Manage Products</h1>
     <input type="text" id="productName" placeholder="Product Name">
-    <input type="number" id="productPrice" placeholder="Price">
+    <input type="text" id="productPrice" placeholder="Price">
     <input type="file" id="productImage">
     <input type="text" id="productCategory" placeholder="Category">
     <button onclick="addProduct()">Add Product</button>
-
-    <section id="adminProducts"></section>
-
-    <!-- ✅ Use Correct Firebase CDN Scripts -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js"></script>
-
-    <!-- ✅ Your Scripts (Load After Firebase) -->
-    <script src="firebase.js"></script>
-    <script src="auth.js"></script>
-    <script src="admin.js"></script>
+    
+    <h2>Product List</h2>
+    <ul id="productList"></ul>
 </body>
 </html>
+
