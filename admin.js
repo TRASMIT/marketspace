@@ -1,7 +1,8 @@
-import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-import { getFirestore, collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js";
-import { app, db, storage } from "./firebase.js"; // Import Firebase setup
+// ✅ Import Firebase & Firestore Modules
+import { auth, db, storage } from "./firebase.js";
+import { collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+import { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js";
+import { signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
 
 // ✅ Fetch Products Function
 function fetchProducts() {
@@ -68,3 +69,4 @@ document.getElementById("logoutBtn").addEventListener("click", () => {
 
 // ✅ Run Fetch Products when Page Loads
 document.addEventListener("DOMContentLoaded", fetchProducts);
+
