@@ -9,13 +9,21 @@
 <body>
     <header>
         <h1>Checkout</h1>
-        <button onclick="goBack()">Back</button>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="cart.html">Cart</a></li>
+            </ul>
+        </nav>
     </header>
-
-    <section id="checkoutSummary"></section>
-    <h2 id="totalAmount"></h2>
-    <button onclick="placeOrder()">Place Order</button>
-
+    <main>
+        <section id="checkout-form">
+            <h2>Enter Your Details</h2>
+            <input type="text" id="name" placeholder="Full Name" required>
+            <input type="text" id="address" placeholder="Shipping Address" required>
+            <button onclick="placeOrder()">Place Order</button>
+        </section>
+    </main>
     <script src="firebase.js"></script>
     <script src="checkout.js"></script>
 </body>
