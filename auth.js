@@ -1,48 +1,62 @@
-function signUp() {
-    let email = document.getElementById("signupEmail").value;
-    let password = document.getElementById("signupPassword").value;
+// auth.js - Handles user authentication (Signup, Login, Logout)
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "firebase/auth";
+import { app } from "./firebase.js"; 
 
-    auth.createUserWithEmailAndPassword(email, password)
+const auth = getAuth(app);
+
+// Signup Function
+function signup() {
+    const email = document.getElementById("signup-email").value;
+    const password = document.getElementById("signup-password").value;
+
+    createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            alert("✅ Signup successful! Redirecting to login...");
-            window.location.href = "login.html";
+            alert("Signup successful!");
+            window.location.href = "index.html"; // Redirect to homepage
         })
         .catch((error) => {
-            alert("❌ Error: " + error.message);
+            alert(error.message);
         });
 }
 
-function logIn() {
-    let email = document.getElementById("loginEmail").value;
-    let password = document.getElementById("loginPassword").value;
+// Login Function
+function login() {
+    const email = document.getElementById("login-email").value;
+    const password = document.getElementById("login-password").value;
 
-    auth.signInWithEmailAndPassword(email, password)
+    signInWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            alert("✅ Login successful! Redirecting to homepage...");
-            window.location.href = "index.html";
+            alert("Login successful!");
+            window.location.href = "index.html"; // Redirect to homepage
         })
         .catch((error) => {
-            alert("❌ Error: " + error.message);
+            alert(error.message);
         });
 }
 
+// Logout Function
 function logout() {
-    auth.signOut()
+    signOut(auth)
         .then(() => {
-            alert("✅ Logged out successfully!");
-            window.location.href = "login.html";
+            alert("Logged out successfully!");
+            window.location.href = "login.html"; // Redirect to login page
         })
         .catch((error) => {
-            alert("❌ Error: " + error.message);
+            alert(error.message);
         });
 }
 
-// ✅ Function to Check Authentication Status
-function checkAuth() {
-    auth.onAuthStateChanged((user) => {
-        if (!user) {
-            alert("❌ Access Denied! Redirecting to Login...");
-            window.location.href = "login.html";
-        }
-    });
-}
+// Auth State Listener (Keeps user logged in)
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        document.getElementById("user-status").innerText = `Logged in as ${user.email}`;
+        document.getElementById("logout-btn").style.display = "block";
+    } else {
+        document.getElementById("user-status").innerText = "Not logged in";
+        document.getElementById("logout-btn").style.display = "none";
+    }
+});
+
+// Export functions for use in HTML files
+export { signup, login, logout };
+
