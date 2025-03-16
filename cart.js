@@ -24,7 +24,3 @@ function removeItem(index) {
     localStorage.setItem("cart", JSON.stringify(cart));
     loadCart();
 }
-
-function checkout() {
-    window.location.href = "checkout.html";
-}
