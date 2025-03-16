@@ -3,41 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home - Nail Extensions Shop</title>
+    <title>Nail Extensions Store</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>Nail Extensions Shop</h1>
         <nav>
-            <a href="index.html">Home</a>
-            <a href="product.html">Products</a>
-            <a href="cart.html">Cart</a>
-            <a href="order-history.html">Order History</a>
-            <a href="profile.html">Profile</a>
-            <button id="logout">Logout</button>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="cart.html">Cart</a></li>
+                <li><a href="order-history.html">Orders</a></li>
+                <li id="authLinks"></li>
+            </ul>
         </nav>
     </header>
     <main>
-        <section class="hero">
-            <h2>Welcome to the Best Nail Extensions Store!</h2>
-            <p>Discover high-quality nail extensions and beauty accessories.</p>
-            <a href="product.html" class="shop-now">Shop Now</a>
-        </section>
+        <h1>Welcome to Nail Extensions Store</h1>
+        <section id="products"></section>
     </main>
-    <script src="firebase.js" type="module"></script>
-    <script src="auth.js" type="module"></script>
-    <script>
-        import { logOut } from "./auth.js";
-        document.getElementById("logout").addEventListener("click", async () => {
-            try {
-                await logOut();
-                alert("Logged out successfully!");
-                window.location.href = "login.html";
-            } catch (error) {
-                alert("Logout failed: " + error.message);
-            }
-        });
-    </script>
+    <script src="firebase.js"></script>
+    <script src="index.js"></script>
+    <script src="auth.js"></script>
 </body>
 </html>
