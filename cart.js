@@ -1,53 +1,30 @@
-let cart = [];
-
-function addToCart(id, name, price) {
-    let product = { id, name, price };
-    cart.push(product);
-    localStorage.setItem("cart", JSON.stringify(cart));
-    alert("Product added to cart!");
-    updateCartDisplay();
-}
+document.addEventListener("DOMContentLoaded", loadCart);
 
 function loadCart() {
-    let savedCart = localStorage.getItem("cart");
-    if (savedCart) {
-        cart = JSON.parse(savedCart);
-        updateCartDisplay();
-    }
-}
+    const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+    const cartList = document.getElementById("cart-items");
+    const cartTotal = document.getElementById("cart-total");
 
-function updateCartDisplay() {
-    let cartContainer = document.getElementById("cartItems");
-    let totalPrice = 0;
-    cartContainer.innerHTML = "";
-    
-    cart.forEach((item, index) => {
-        totalPrice += item.price;
-        cartContainer.innerHTML += `
-            <div class="cart-item">
-                <h3>${item.name}</h3>
-                <p>Price: $${item.price}</p>
-                <button onclick="removeFromCart(${index})">Remove</button>
-            </div>`;
+    cartList.innerHTML = "";
+    let total = 0;
+
+    cartItems.forEach((item, index) => {
+        const li = document.createElement("li");
+        li.innerHTML = `${item.name} - $${item.price} <button onclick="removeItem(${index})">Remove</button>`;
+        cartList.appendChild(li);
+        total += item.price;
     });
-    
-    document.getElementById("totalPrice").innerText = `Total: $${totalPrice}`;
+
+    cartTotal.textContent = `$${total.toFixed(2)}`;
 }
 
-function removeFromCart(index) {
+function removeItem(index) {
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
     cart.splice(index, 1);
     localStorage.setItem("cart", JSON.stringify(cart));
-    updateCartDisplay();
+    loadCart();
 }
 
 function checkout() {
-    firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-            alert("Proceeding to checkout...");
-            // Add checkout logic here
-        } else {
-            alert("You must log in to checkout.");
-            window.location.href = "login.html";
-        }
-    });
+    window.location.href = "checkout.html";
 }
