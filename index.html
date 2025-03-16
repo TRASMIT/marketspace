@@ -8,21 +8,23 @@
 </head>
 <body>
     <header>
+        <h1>Welcome to Nail Extensions Store</h1>
         <nav>
             <ul>
-                <li><a href="index.html">Home</a></li>
                 <li><a href="cart.html">Cart</a></li>
-                <li><a href="order-history.html">Orders</a></li>
-                <li id="authLinks"></li>
+                <li><a href="order-history.html">Order History</a></li>
+                <li><a href="login.html">Login</a></li>
+                <li><a href="signup.html">Sign Up</a></li>
+                <li><a href="#" id="logout-btn" onclick="logout()" style="display:none;">Logout</a></li>
             </ul>
         </nav>
     </header>
     <main>
-        <h1>Welcome to Nail Extensions Store</h1>
-        <section id="products"></section>
+        <h2>Available Products</h2>
+        <div id="product-list"></div>
     </main>
     <script src="firebase.js"></script>
-    <script src="index.js"></script>
     <script src="auth.js"></script>
+    <script src="product.js"></script>
 </body>
 </html>
