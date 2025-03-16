@@ -3,41 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Products</title>
+    <title>Product Details</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>Nail Extensions Shop</h1>
+        <h1>Product Details</h1>
         <nav>
-            <a href="index.html">Home</a>
-            <a href="product.html">Products</a>
-            <a href="cart.html">Cart</a>
-            <a href="order-history.html">Order History</a>
-            <a href="profile.html">Profile</a>
-            <button id="logout">Logout</button>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="cart.html">Cart</a></li>
+            </ul>
         </nav>
     </header>
     <main>
-        <h2>Our Products</h2>
-        <div class="product-list" id="product-list">
-            <!-- Products will be dynamically loaded here -->
-        </div>
+        <div id="product-details"></div>
+        <button onclick="addToCart()">Add to Cart</button>
     </main>
-    <script src="firebase.js" type="module"></script>
-    <script src="auth.js" type="module"></script>
-    <script src="product.js" type="module"></script>
-    <script>
-        import { logOut } from "./auth.js";
-        document.getElementById("logout").addEventListener("click", async () => {
-            try {
-                await logOut();
-                alert("Logged out successfully!");
-                window.location.href = "login.html";
-            } catch (error) {
-                alert("Logout failed: " + error.message);
-            }
-        });
-    </script>
+    <script src="firebase.js"></script>
+    <script src="product.js"></script>
 </body>
 </html>
