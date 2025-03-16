@@ -3,33 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
+    <title>Profile</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
-        <h1>User Profile</h1>
-        <button onclick="goBack()">Back</button>
+        <h1>Your Profile</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="cart.html">Cart</a></li>
+            </ul>
+        </nav>
     </header>
-
-    <section id="profileSection">
-        <img id="profilePicture" src="default-profile.png" alt="Profile Picture">
-        <input type="file" id="profileImageUpload">
-        <h2 id="userName"></h2>
-        <p id="userEmail"></p>
-
-        <input type="text" id="editName" placeholder="New Name">
-        <button onclick="updateProfile()">Update Profile</button>
-
-        <h3>Change Password</h3>
-        <input type="password" id="newPassword" placeholder="New Password">
-        <button onclick="changePassword()">Change Password</button>
-
-        <h3>Order History</h3>
-        <section id="orderList"></section>
-    </section>
-
+    <main>
+        <p><strong>Email:</strong> <span id="user-email"></span></p>
+        <button onclick="logout()">Logout</button>
+    </main>
     <script src="firebase.js"></script>
     <script src="profile.js"></script>
 </body>
 </html>
+
