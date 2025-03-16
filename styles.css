@@ -43,3 +43,11 @@ button {
 button:hover {
     background-color: #e91e63;
 }
+
+.product {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: white;
+    border-radius: 5px;
+}
