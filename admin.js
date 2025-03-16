@@ -1,72 +1,43 @@
-// ✅ Import Firebase & Firestore Modules
-import { auth, db, storage } from "./firebase.js";
-import { collection, addDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
-import { ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-storage.js";
-import { signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+document.addEventListener("DOMContentLoaded", () => {
+    loadProducts();
+});
 
-// ✅ Fetch Products Function
-function fetchProducts() {
-    console.log("📌 Fetching Products...");
-    const productsContainer = document.getElementById("products");
-    if (!productsContainer) return;
+function addProduct() {
+    const name = document.getElementById("product-name").value;
+    const price = document.getElementById("product-price").value;
+    const image = document.getElementById("product-image").value;
 
-    onSnapshot(collection(db, "products"), (snapshot) => {
-        productsContainer.innerHTML = "";
-        snapshot.forEach((doc) => {
-            const product = doc.data();
-            productsContainer.innerHTML += `
-                <div class="product-card">
-                    <img src="${product.image}" alt="${product.name}">
-                    <h3>${product.name}</h3>
-                    <p>$${product.price}</p>
-                </div>`;
-        });
-        console.log("✅ Products Loaded Successfully!");
-    });
-}
-
-// ✅ Add Product Function
-document.getElementById("addProductForm").addEventListener("submit", async (event) => {
-    event.preventDefault();
-    const name = document.getElementById("productName").value;
-    const price = document.getElementById("productPrice").value;
-    const category = document.getElementById("productCategory").value;
-    const file = document.getElementById("productImage").files[0];
-
-    if (!name || !price || !category || !file) {
-        alert("❌ Please fill all fields!");
+    if (!name || !price || !image) {
+        alert("Please fill all fields");
         return;
     }
 
-    try {
-        // ✅ Upload image to Firebase Storage
-        const storageRef = ref(storage, `products/${file.name}`);
-        const uploadResult = await uploadBytes(storageRef, file);
-        const imageUrl = await getDownloadURL(uploadResult.ref);
+    const productRef = firebase.firestore().collection("products");
+    productRef.add({ name, price, image })
+        .then(() => {
+            alert("Product added successfully!");
+            loadProducts();
+        })
+        .catch(error => console.error("Error adding product: ", error));
+}
 
-        // ✅ Add product to Firestore
-        await addDoc(collection(db, "products"), {
-            name,
-            price: parseFloat(price),
-            category,
-            image: imageUrl
+function loadProducts() {
+    const productList = document.getElementById("product-list");
+    productList.innerHTML = "";
+
+    firebase.firestore().collection("products").get()
+        .then(snapshot => {
+            snapshot.forEach(doc => {
+                const product = doc.data();
+                const li = document.createElement("li");
+                li.innerHTML = `${product.name} - $${product.price}`;
+                productList.appendChild(li);
+            });
         });
+}
 
-        alert("✅ Product added successfully!");
-        document.getElementById("addProductForm").reset();
-    } catch (error) {
-        console.error("❌ Error adding product:", error);
-    }
-});
-
-// ✅ Logout Function
-document.getElementById("logoutBtn").addEventListener("click", () => {
-    signOut(auth).then(() => {
-        alert("✅ Logged out successfully!");
+function logout() {
+    firebase.auth().signOut().then(() => {
         window.location.href = "login.html";
-    }).catch(error => console.error("❌ Logout Error:", error));
-});
-
-// ✅ Run Fetch Products when Page Loads
-document.addEventListener("DOMContentLoaded", fetchProducts);
-
+    });
+}
