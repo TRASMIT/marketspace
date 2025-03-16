@@ -1,15 +1,15 @@
 document.addEventListener("DOMContentLoaded", () => {
     firebase.auth().onAuthStateChanged(user => {
-        const authLinks = document.getElementById("authLinks");
         if (user) {
-            authLinks.innerHTML = `<button onclick="logout()">Logout</button>`;
+            document.getElementById("logout-btn").style.display = "block";
         } else {
-            authLinks.innerHTML = `<a href="login.html">Login</a> | <a href="signup.html">Sign Up</a>`;
+            document.getElementById("logout-btn").style.display = "none";
         }
     });
 });
+
 function logout() {
     firebase.auth().signOut().then(() => {
-        window.location.href = "index.html";
+        window.location.href = "login.html";
     });
 }
