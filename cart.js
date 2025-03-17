@@ -1,31 +1,47 @@
 function loadCart() {
-  const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
-  const cartList = document.getElementById("cart-items");
-  const cartTotal = document.getElementById("cart-total");
+    const cartItems = JSON.parse(localStorage.getItem("cart")) || [];
+    const cartList = document.getElementById("cart-items");
+    const cartTotal = document.getElementById("cart-total");
 
-  cartList.innerHTML = "";
-  let total = 0;
+    cartList.innerHTML = "";
+    let total = 0;
 
-  cartItems.forEach((item, index) => {
-    const li = document.createElement("li");
-    li.innerHTML = `${item.name} - $${item.price} <button onclick="removeItem(${index})">Remove</button>`;
-    cartList.appendChild(li);
-    total += item.price;
-  });
+    cartItems.forEach((item, index) => {
+        const li = document.createElement("li");
+        li.innerHTML = `
+            ${item.name} - $${parseFloat(item.price).toFixed(2)}
+            <button onclick="removeItem(${index})">Remove</button>
+        `;
+        cartList.appendChild(li);
+        total += parseFloat(item.price);
+    });
 
-  cartTotal.textContent = `$${total.toFixed(2)}`;
+    cartTotal.textContent = `$${total.toLocaleString("en-US", { minimumFractionDigits: 2 })}`;
 }
 
 function removeItem(index) {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  cart.splice(index, 1);
-  localStorage.setItem("cart", JSON.stringify(cart));
-  loadCart();
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+    cart.splice(index, 1);
+    localStorage.setItem("cart", JSON.stringify(cart));
+    loadCart();
 }
 
 function checkout() {
-  window.location.href = "checkout.html";
+    if (JSON.parse(localStorage.getItem("cart")).length === 0) {
+        alert("Your cart is empty!");
+        return;
+    }
+    window.location.href = "checkout.html";
 }
 
-// Call the function to load the cart when the page loads
-document.addEventListener("DOMContentLoaded", loadCart);
+document.addEventListener("DOMContentLoaded", () => {
+    loadCart();
+    document.getElementById("logout-btn").addEventListener("click", () => {
+        if (typeof logout === "function") {
+            logout();
+        } else {
+            alert("Logout function not found!");
+        }
+    });
+});
+
