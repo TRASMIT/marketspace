@@ -5,8 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- Include Firebase -->
-    <script src="firebase.js"></script>
+    <link rel="icon" href="data:,">
 </head>
 <body>
     <header>
@@ -18,7 +17,8 @@
         <button onclick="signup()">Sign Up</button>
         <p>Already have an account? <a href="login.html">Login</a></p>
     </main>
-    <!-- Include auth.js -->
-    <script src="auth.js"></script>
+    <!-- Include Firebase and auth.js as modules -->
+    <script type="module" src="firebase.js"></script>
+    <script type="module" src="auth.js"></script>
 </body>
 </html>
