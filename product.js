@@ -2,8 +2,8 @@ function loadProducts() {
   const productList = document.getElementById("product-list");
 
   db.collection("products").get()
-    .then(snapshot => {
-      snapshot.forEach(doc => {
+    .then((snapshot) => {
+      snapshot.forEach((doc) => {
         const product = doc.data();
         const productDiv = document.createElement("div");
         productDiv.innerHTML = `
@@ -15,21 +15,21 @@ function loadProducts() {
         productList.appendChild(productDiv);
       });
     })
-    .catch(error => {
+    .catch((error) => {
       console.error("Error loading products: ", error);
     });
 }
 
 function addToCart(productId) {
   db.collection("products").doc(productId).get()
-    .then(doc => {
+    .then((doc) => {
       const product = doc.data();
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
       cart.push(product);
       localStorage.setItem("cart", JSON.stringify(cart));
       alert("Product added to cart!");
     })
-    .catch(error => {
+    .catch((error) => {
       console.error("Error adding to cart: ", error);
     });
 }
