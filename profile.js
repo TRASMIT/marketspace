@@ -1,6 +1,9 @@
+// Import Firebase services
+import { auth } from "./firebase.js";
+
 document.addEventListener("DOMContentLoaded", () => {
   // Check if the user is logged in
-  firebase.auth().onAuthStateChanged((user) => {
+  auth.onAuthStateChanged((user) => {
     if (user) {
       // User is signed in
       const userEmail = document.getElementById("user-email");
@@ -14,7 +17,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Logout function
 function logout() {
-  firebase.auth().signOut()
+  signOut(auth)
     .then(() => {
       console.log("User signed out successfully!");
       window.location.href = "login.html"; // Redirect to login page after logout
