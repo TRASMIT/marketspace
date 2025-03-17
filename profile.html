@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title>Product Details</title>
     <link rel="stylesheet" href="styles.css">
-    <!-- Include Firebase -->
-    <script src="firebase.js"></script>
+    <link rel="icon" href="data:,">
 </head>
 <body>
     <header>
-        <h1>Your Profile</h1>
+        <h1>Product Details</h1>
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
@@ -19,11 +18,11 @@
         </nav>
     </header>
     <main>
-        <p><strong>Email:</strong> <span id="user-email"></span></p>
-        <button onclick="logout()">Logout</button>
+        <div id="product-details"></div>
+        <button onclick="addToCart()">Add to Cart</button>
     </main>
-    <!-- Include other scripts -->
-    <script src="auth.js"></script>
-    <script src="profile.js"></script>
+    <!-- Include Firebase and other scripts as modules -->
+    <script type="module" src="firebase.js"></script>
+    <script type="module" src="product.js"></script>
 </body>
 </html>
