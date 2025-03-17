@@ -1,9 +1,26 @@
-document.addEventListener("DOMContentLoaded", function() {
-    firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-            document.getElementById("user-email").textContent = user.email;
-        } else {
-            window.location.href = "login.html";
-        }
-    });
+document.addEventListener("DOMContentLoaded", () => {
+  // Check if the user is logged in
+  firebase.auth().onAuthStateChanged((user) => {
+    if (user) {
+      // User is signed in
+      const userEmail = document.getElementById("user-email");
+      userEmail.textContent = user.email; // Display the user's email
+    } else {
+      // User is signed out, redirect to login page
+      window.location.href = "login.html";
+    }
+  });
 });
+
+// Logout function
+function logout() {
+  firebase.auth().signOut()
+    .then(() => {
+      console.log("User signed out successfully!");
+      window.location.href = "login.html"; // Redirect to login page after logout
+    })
+    .catch((error) => {
+      console.error("Logout failed:", error.message);
+      alert("Logout failed: " + error.message);
+    });
+}
