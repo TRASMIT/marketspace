@@ -1,37 +1,73 @@
+// Initialize Firebase Authentication and Firestore
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+// Check if the user is logged in or out
 document.addEventListener("DOMContentLoaded", () => {
-    firebase.auth().onAuthStateChanged(user => {
-        if (user) {
-            document.getElementById("logout-btn").style.display = "block";
-        } else {
-            document.getElementById("logout-btn").style.display = "none";
-        }
-    });
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      // User is signed in
+      console.log("User is signed in:", user.email);
+      document.getElementById("logout-btn").style.display = "block"; // Show logout button
+    } else {
+      // User is signed out
+      console.log("User is signed out");
+      document.getElementById("logout-btn").style.display = "none"; // Hide logout button
+    }
+  });
 });
 
+// Login function
 function login() {
-    const email = document.getElementById("login-email").value;
-    const password = document.getElementById("login-password").value;
+  const email = document.getElementById("login-email").value;
+  const password = document.getElementById("login-password").value;
 
-    firebase.auth().signInWithEmailAndPassword(email, password)
-        .then(() => {
-            window.location.href = "index.html";
-        })
-        .catch(error => alert("Login failed: " + error.message));
+  if (!email || !password) {
+    alert("Please fill in all fields.");
+    return;
+  }
+
+  auth.signInWithEmailAndPassword(email, password)
+    .then(() => {
+      console.log("User logged in successfully!");
+      window.location.href = "index.html"; // Redirect to homepage after login
+    })
+    .catch((error) => {
+      console.error("Login failed:", error.message);
+      alert("Login failed: " + error.message);
+    });
 }
 
+// Signup function
 function signup() {
-    const email = document.getElementById("signup-email").value;
-    const password = document.getElementById("signup-password").value;
+  const email = document.getElementById("signup-email").value;
+  const password = document.getElementById("signup-password").value;
 
-    firebase.auth().createUserWithEmailAndPassword(email, password)
-        .then(() => {
-            window.location.href = "index.html";
-        })
-        .catch(error => alert("Signup failed: " + error.message));
+  if (!email || !password) {
+    alert("Please fill in all fields.");
+    return;
+  }
+
+  auth.createUserWithEmailAndPassword(email, password)
+    .then(() => {
+      console.log("User signed up successfully!");
+      window.location.href = "index.html"; // Redirect to homepage after signup
+    })
+    .catch((error) => {
+      console.error("Signup failed:", error.message);
+      alert("Signup failed: " + error.message);
+    });
 }
 
+// Logout function
 function logout() {
-    firebase.auth().signOut().then(() => {
-        window.location.href = "login.html";
+  auth.signOut()
+    .then(() => {
+      console.log("User signed out successfully!");
+      window.location.href = "login.html"; // Redirect to login page after logout
+    })
+    .catch((error) => {
+      console.error("Logout failed:", error.message);
+      alert("Logout failed: " + error.message);
     });
 }
