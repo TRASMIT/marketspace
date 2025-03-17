@@ -1,5 +1,6 @@
 // Import Firebase services
 import { auth } from "./firebase.js";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
 
 // Check if the user is logged in or out
 document.addEventListener("DOMContentLoaded", () => {
