@@ -1,6 +1,5 @@
-// Initialize Firebase Authentication and Firestore
-const auth = firebase.auth();
-const db = firebase.firestore();
+// Import Firebase services
+import { auth } from "./firebase.js";
 
 // Check if the user is logged in or out
 document.addEventListener("DOMContentLoaded", () => {
@@ -27,7 +26,7 @@ function login() {
     return;
   }
 
-  auth.signInWithEmailAndPassword(email, password)
+  signInWithEmailAndPassword(auth, email, password)
     .then(() => {
       console.log("User logged in successfully!");
       window.location.href = "index.html"; // Redirect to homepage after login
@@ -48,7 +47,7 @@ function signup() {
     return;
   }
 
-  auth.createUserWithEmailAndPassword(email, password)
+  createUserWithEmailAndPassword(auth, email, password)
     .then(() => {
       console.log("User signed up successfully!");
       window.location.href = "index.html"; // Redirect to homepage after signup
@@ -61,7 +60,7 @@ function signup() {
 
 // Logout function
 function logout() {
-  auth.signOut()
+  signOut(auth)
     .then(() => {
       console.log("User signed out successfully!");
       window.location.href = "login.html"; // Redirect to login page after logout
