@@ -1,7 +1,11 @@
+// Import Firebase services
+import { db } from "./firebase.js";
+import { collection, getDocs, doc, getDoc } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore.js";
+
 function loadProducts() {
   const productList = document.getElementById("product-list");
 
-  db.collection("products").get()
+  getDocs(collection(db, "products"))
     .then((snapshot) => {
       snapshot.forEach((doc) => {
         const product = doc.data();
@@ -21,7 +25,7 @@ function loadProducts() {
 }
 
 function addToCart(productId) {
-  db.collection("products").doc(productId).get()
+  getDoc(doc(db, "products", productId))
     .then((doc) => {
       const product = doc.data();
       let cart = JSON.parse(localStorage.getItem("cart")) || [];
