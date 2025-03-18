@@ -1,10 +1,15 @@
 // Import Firebase services
 import { auth } from "./firebase.js";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
+import { 
+  createUserWithEmailAndPassword, 
+  signInWithEmailAndPassword, 
+  signOut, 
+  onAuthStateChanged 
+} from "https://www.gstatic.com/firebasejs/9.6.10/firebase-auth.js";
 
 // Check if the user is logged in or out
 document.addEventListener("DOMContentLoaded", () => {
-  auth.onAuthStateChanged((user) => {
+  onAuthStateChanged(auth, (user) => {
     if (user) {
       // User is signed in
       console.log("User is signed in:", user.email);
@@ -71,3 +76,8 @@ function logout() {
       alert("Logout failed: " + error.message);
     });
 }
+
+// Export functions to make them accessible in HTML
+window.login = login;
+window.signup = signup;
+window.logout = logout;
